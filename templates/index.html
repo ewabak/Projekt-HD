@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Projekt Hurtownie danych</title>
+
+    <style>
+    table, th, td {
+    border: 1px solid black;
+    }
+
+    th, td {
+    padding: 10px;
+    }
+
+    </style>
+  </head>
+
+  <body>
+
+        <nav class="navbar" style="background-color: #fecc0c;"> <!-- navbar-->
+                <span class="navbar-brand mb-0 h1">Projekt Hurtownie danych</span>
+        </nav>
+
+    <div class="container">
+
+       <table table-hover border id="scraper">
+
+          <thead>
+            <tr>
+              <th>nazwa ogłoszenia</th>
+              <th>Szczegóły ogłoszenia</th>
+              <th>Cena za metr kwadratowy</th>
+              <th>Cena całkowita</th>
+            </tr>
+          </thead>
+        </table>
+
+      <script type="text/javascript">
+      var mieszkanie = [nazwa, podpis, pokoj, metry, cena_metr, cena];
+      for (var i=0; i<mieszkanie.length; i++) {
+        var nazwa = document.getElementById('nazwa' + (i + 1));
+        var podpis = document.getElementById('podpis' + (i + 1));
+        var pokoj = document.getElementById('pokoj' + (i + 1));
+        var metry = document.getElementById('metry' + (i + 1));
+        var cena_metr = document.getElementById('cena_metr' + (i + 1));
+        var cena = document.getElementById('cena' + (i + 1));
+      }
+
+      </script>
+    </div>
+  </body>
+  
+</html>
