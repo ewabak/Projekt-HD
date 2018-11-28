@@ -34,8 +34,7 @@
     
       <table table-hover border id="scraper">
           {% block content %}
-          {{data.to_html(classes="table table-striped") | safe}}
-          {{data.to_html(classes="table table-striped") | safe}}
+          {{data.to_html(classes="table-striped") | safe}}
           {% endblock %}
       </table>
       
