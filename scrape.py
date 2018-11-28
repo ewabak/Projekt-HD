@@ -3,6 +3,11 @@ import requests
 import csv
 import pandas as pd
 
+source = requests.get('https://www.otodom.pl/sprzedaz/mieszkanie/krakow/')
+
+soup = BeautifulSoup(source.text, 'html.parser')
+
+
 csv_file = open('cms_scrape.csv', 'w', encoding='utf-8', errors = 'ignore')
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['nazwa', 'podpis', 'pokoj', 'metry', 'cena_metr', 'cena'])
