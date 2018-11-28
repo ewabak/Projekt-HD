@@ -3,7 +3,6 @@ import requests
 import csv
 import pandas as pd
 
-
 csv_file = open('cms_scrape.csv', 'w', encoding='utf-8', errors = 'ignore')
 csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['nazwa', 'podpis', 'pokoj', 'metry', 'cena_metr', 'cena'])
