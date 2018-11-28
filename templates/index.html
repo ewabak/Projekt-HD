@@ -31,31 +31,14 @@
         </nav>
 
     <div class="container">
-
-       <table table-hover border id="scraper">
-
-          <thead>
-            <tr>
-              <th>nazwa ogłoszenia</th>
-              <th>Szczegóły ogłoszenia</th>
-              <th>Cena za metr kwadratowy</th>
-              <th>Cena całkowita</th>
-            </tr>
-          </thead>
-        </table>
-
-      <script type="text/javascript">
-      var mieszkanie = [nazwa, podpis, pokoj, metry, cena_metr, cena];
-      for (var i=0; i<mieszkanie.length; i++) {
-        var nazwa = document.getElementById('nazwa' + (i + 1));
-        var podpis = document.getElementById('podpis' + (i + 1));
-        var pokoj = document.getElementById('pokoj' + (i + 1));
-        var metry = document.getElementById('metry' + (i + 1));
-        var cena_metr = document.getElementById('cena_metr' + (i + 1));
-        var cena = document.getElementById('cena' + (i + 1));
-      }
-
-      </script>
+    
+      <table table-hover border id="scraper">
+          {% block content %}
+          {{data.to_html(classes="table table-striped") | safe}}
+          {{data.to_html(classes="table table-striped") | safe}}
+          {% endblock %}
+      </table>
+      
     </div>
   </body>
   

@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import csv
+import pandas as pd
 
 source = requests.get('https://www.otodom.pl/sprzedaz/mieszkanie/krakow/')
 
@@ -21,6 +22,10 @@ for mieszkanie in soup.find_all('div', class_='offer-item-details'):
 
     csv_writer.writerow([nazwa, podpis, pokoj, metry, cena_metr, cena])
 
+    data = [[nazwa, podpis, pokoj, metry, cena_metr, cena]]
+    df = pd.DataFrame(data, columns=['Nazwa', 'Podpis', 'Pokoj', 'Metry', 'Cena za metr', 'Cena'])
+    print(df)
+
 csv_file.close()
 
 from flask import Flask, render_template
@@ -30,7 +35,7 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
 
-    return render_template("index.html", nazwa = nazwa, pokoj = pokoj, podpis = podpis, metry = metry, cena_metr = cena_metr, cena = cena)
+    return render_template("index.html", data=df)
 
 if __name__ == "__main__":
     app.run()
