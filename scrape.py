@@ -17,7 +17,7 @@ ceny=[]
 
 # https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?search%5Bfilter_float_price%3Afrom%5D=300000&search%5Bfilter_float_price%3Ato%5D=450000&page=2
 
-for i in range(1, 10):
+for i in range(1, 2):
     page = "https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?page={}".format(i)
     html = requests.get(page)
     soup = BeautifulSoup(html.text, 'lxml')
@@ -51,7 +51,6 @@ for i in range(1, 10):
 
 df = pd.DataFrame({'Nazwa':nazwy, 'Dzielnica':dzielnice, 'Pokoj':pokoje, 'Metry':metryy, 'Cena za metr':cena_metryy, 'Cena':ceny})
     
-csv_file.close()
 
 #print(df)
 
@@ -65,7 +64,7 @@ def index():
     # render your html template
     return render_template('index.html')
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def homepage():
 
     return render_template("wynik.html", data=df)
@@ -73,7 +72,7 @@ def homepage():
 if __name__ == "__main__":
     app.run()
 
-    csv_writer.writerow([nazwa, podpis, pokoj])
+csv_writer.writerow([nazwa, podpis, pokoj])
 csv_file.close()
 
 
