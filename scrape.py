@@ -2,10 +2,11 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 import pandas as pd
+from flask import Flask, render_template, Response, request, redirect, url_for
 
 csv_file = open('cms_scrape.csv', 'w', encoding='utf-8', errors = 'ignore')
 csv_writer = csv.writer(csv_file)
-csv_writer.writerow(['nazwa', 'podpis', 'pokoj', 'metry', 'cena_metr', 'cena'])
+csv_writer.writerow(['nazwa', 'dzielnica', 'pokoj', 'metry', 'cena_metr', 'cena'])
 
 nazwy=[]
 dzielnice=[]
@@ -14,7 +15,9 @@ metryy=[]
 cena_metryy=[]
 ceny=[]
 
-for i in range(1, 10):
+# https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?search%5Bfilter_float_price%3Afrom%5D=300000&search%5Bfilter_float_price%3Ato%5D=450000&page=2
+
+for i in range(1, 2):
     page = "https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?page={}".format(i)
     html = requests.get(page)
     soup = BeautifulSoup(html.text, 'lxml')
@@ -48,7 +51,6 @@ for i in range(1, 10):
 
 df = pd.DataFrame({'Nazwa':nazwy, 'Dzielnica':dzielnice, 'Pokoj':pokoje, 'Metry':metryy, 'Cena za metr':cena_metryy, 'Cena':ceny})
     
-csv_file.close()
 
 #print(df)
 
@@ -56,7 +58,13 @@ from flask import Flask, render_template
     
 app = Flask(__name__)
 
+
 @app.route('/')
+def index():
+    # render your html template
+    return render_template('index.html')
+
+@app.route('/', methods=['POST'])
 def homepage():
 
     return render_template("wynik.html", data=df)
@@ -64,5 +72,7 @@ def homepage():
 if __name__ == "__main__":
     app.run()
 
-    csv_writer.writerow([nazwa, podpis, pokoj])
+csv_writer.writerow([nazwa, podpis, pokoj])
 csv_file.close()
+
+
