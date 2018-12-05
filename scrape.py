@@ -8,7 +8,7 @@ csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['nazwa', 'podpis', 'pokoj', 'metry', 'cena_metr', 'cena'])
 
 nazwy=[]
-podpisy=[]
+dzielnice=[]
 pokoje=[]
 metryy=[]
 cena_metryy=[]
@@ -25,7 +25,8 @@ for i in range(1, 10):
         nazwy.append(nazwa)
 
         podpis = mieszkanie.find('p', class_='text-nowrap hidden-xs').text
-        podpisy.append(podpis)
+        dzielnica = podpis.split(':')[1]
+        dzielnice.append(dzielnica)
 
         pokoj = mieszkanie.find('li', class_='offer-item-rooms hidden-xs').text
         pokoje.append(pokoj)
@@ -40,16 +41,16 @@ for i in range(1, 10):
         ceny.append(cena)
 
 
-        csv_writer.writerow([nazwa, podpis, pokoj, metry, cena_metr, cena])
+        csv_writer.writerow([nazwa, dzielnica, pokoj, metry, cena_metr, cena])
 
         #data = [[nazwa, podpis, pokoj, metry, cena_metr, cena]]
         #df = pd.DataFrame(data, columns=['Nazwa', 'Podpis', 'Pokoj', 'Metry', 'Cena za metr', 'Cena'])
 
-df = pd.DataFrame({'Nazwa':nazwy, 'Podpis':podpisy, 'Pokoj':pokoje, 'Metry':metryy, 'Cena za metr':cena_metryy, 'Cena':ceny})
+df = pd.DataFrame({'Nazwa':nazwy, 'Dzielnica':dzielnice, 'Pokoj':pokoje, 'Metry':metryy, 'Cena za metr':cena_metryy, 'Cena':ceny})
     
 csv_file.close()
 
-print(df)
+#print(df)
 
 from flask import Flask, render_template
     
@@ -58,7 +59,7 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
 
-    return render_template("index.html", data=df)
+    return render_template("wynik.html", data=df)
 
 if __name__ == "__main__":
     app.run()
