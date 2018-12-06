@@ -19,32 +19,28 @@
         <nav class="navbar" style="background-color: #fecc0c;"> <!-- navbar-->
                 <span class="navbar-brand mb-0 h1">Projekt Hurtownie danych</span>
         </nav>
+    
+        <form method="POST">
+            <input type="submit" name="my-form" value="Check !">
+        </form>
 
-<section class="g-bg-gray-light-v5 g-pa-40">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-7 col-sm-12 align-self-center">
-            <h2 class="h3 text-uppercase g-font-weight-300 g-mb-20 g-mb-0--md">Przeprowadz proces
-               <strong>extract</strong> lub <strong> ETL </strong>
-            </h2>
-         </div>
-         <div class="col-md-5 col-sm-12 align-self-center">
-            <form name="form_js"  method="post">
-               <div class="input-group g-brd-primary--focus">
-                  <div class="input-group-addon g-color-gray-light-v1 g-bg-transparent rounded-0">
-                     <i class="fa fa-barcode"></i>
-                  </div>
-                  <input type="text" id="id_product" class="form-control form-control-sm g-font-size-default g-bg-transparent g-bg-transparent--focus rounded-0 "  pattern="\d*" type="email" placeholder="Wprowadz numer ID produktu" name="id_product" required >
-                  <div class="input-group-btn">
-                     <button formaction="index.html" type="submit" class="btn u-btn-primary rounded-0" style="width: 90px;">Extract</button>
-                  </div>
-               </div>
-            </form>
-         </div>
-      </div>
-   </div>
-</section>
+        <form class="form-inline" action="{{ url_for('getvalue') }}" method="post">
+            
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="od" class="sr-only">Kwota od</label>
+              <input type="number" class="form-control" id="od" name="od" placeholder="Od">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="do" class="sr-only">Kwota do</label>
+                <input type="number" class="form-control" id="do" name="do" placeholder="Do">
+              </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            
+          </form>
+
+    </div>
 
   </body>
   
 </html>
+

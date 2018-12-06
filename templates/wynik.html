@@ -39,14 +39,17 @@
         </nav>
     <div class="container">
 
-            {% block content %}
-{{ data.to_html(classes="table table-striped") | safe}}
-{% endblock %}
-
+        {% block content %}
+        {{ data.to_html(classes="table table-striped") | safe}}
+         {{c1}} 
+         {{c2}} 
+        {% endblock %}
 
 
         <!--
         <script type="text/javascript">
+
+
         document.write("<table>")
             document.write("<tr>")
                 
@@ -54,29 +57,40 @@
                 document.write("<th>Szczegóły</th>")
                 document.write("<th>Cena za metr 2</th>")
                 document.write("<th>Cena</th>")
+
             document.write("</tr>")
            for (var a=0; a < 10; a++) {
                 document.write("<tr>")
+
                 document.write("{% for n in nazwa %}")
                 document.write("<th>", "{{nazwa}}","</th>")
                 document.write("{% endfor %}")
+
            document.write("<th>", "{{dzielnica}}", "{{pokoj}}", "{{metry}}","</th>")
+
         document.write("<th>", "{{cena_metr}}", "</th>")
         document.write("<th>" , "{{cena}}", "</th>")
         document.write("</tr>")
+
            }
               
       /*         document.write("<tr>")
+
                     document.write("{% for n in nazwa %}")
                 document.write("<th>", "{{n}}","</th>")
                     document.write("{% endfor %}")
                 document.write("<th>"+ "podpis, pokoj, metry" +"</th>")
                 document.write("<th>"+ "cena_metr" + "</th>")
                 document.write("<th>" + "cena" + "</th>")
+
               document.write("</tr>")
+
          }   */
+
         document.write("</table>")
+
         </script>
+
       <table>
       -->
     </div>
@@ -86,11 +100,14 @@
 </html>
 
 <!--
+
   document.write("<th>"+ "{{nazwa}}" +"</th>")
                 document.write("<th>"+ "{{podpis, pokoj, metry}}" +"</th>")
                 document.write("<th>"+ "{{cena_metr}}" + "</th>")
                 document.write("<th>" + "{{cena}}" + "</th>")
+
  {%for i in nazwa%}
 <h1>{{i[0]}}<h1>
 {%endfor%}
+
 -->
