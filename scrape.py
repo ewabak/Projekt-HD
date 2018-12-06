@@ -64,15 +64,20 @@ def index():
     # render your html template
     return render_template('index.html')
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['POST'])
 def homepage():
 
     return render_template("wynik.html", data=df)
+
+@app.route('/ceny', methods=['post'])
+def getvalue():
+    cena_p = request.form['od']
+    cena_k = request.form['do']
+    return render_template('wynik.html', c1=cena_p, c2=cena_k, data=df)
+
 
 if __name__ == "__main__":
     app.run()
 
 csv_writer.writerow([nazwa, podpis, pokoj])
 csv_file.close()
-
-
