@@ -64,7 +64,7 @@ def index():
     # render your html template
     return render_template('index.html')
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST', 'GET'])
 def homepage():
 
     return render_template("wynik.html", data=df)
