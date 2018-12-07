@@ -12,26 +12,42 @@
 
     <title>Projekt Hurtownie danych</title>
 
-    <link rel="stylesheet" type="text/css" href="..\style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css')}}">
 
   </head>
 
   <body>
 
-        <nav class="navbar" style="background-color: #fecc0c;"> <!-- navbar-->
-                <span class="navbar-brand mb-0 h1">Projekt Hurtownie danych</span>
-        </nav>
+
+        <nav class="navbar navbar-expand-lg" style="background-color: #bccfdf;">
+            <a class="navbar-brand" >Projekt Hurtownie Danych</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Strona główna <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="https://github.com/ewabak/Projekt-HD">Repozytorium GitHub</a>
+                <a class="nav-item nav-link" href="#">Dokumentacja</a>
+              </div>
+            </div>
+          </nav>
     
 <div class="row"><br><br></div>
+<div class="row"><br><br></div>
+
 
 <div class="row">
     <div class="col-sides"> </div>
 
     <div class="col-center">
-
+        
     <p class="tekst">Wprowadź przedział cenowy, według którego chcesz wyszukać mieszkania na sprzedaż w Krakowie:</p>
         <br>
         <br>
+
+        <div class="row">
+
     <form class="form-inline" action="{{ url_for('getvalue') }}" method="post">
             
         <div class="form-group mx-sm-3 mb-2">
@@ -47,9 +63,13 @@
                 <input type="number" class="form-control" id="do" name="do" placeholder="Do">
         
         </div>
-        
-            <button type="submit" class="btn btn-primary mb-2" style="background-color: #fecc0c;">Przeprowadź proces ETL</button>
-            
+
+    </div>
+    <div class="row"><br></div>
+
+    <div class="row">
+            <button type="submit" class="btn btn-primary mb-2" style="background-color: #bccfdf;">Przeprowadź proces ETL</button>
+    </div>
     </form>
     <div class="col-sides"> </div>
 
