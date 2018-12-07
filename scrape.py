@@ -3,17 +3,8 @@ import requests
 import csv
 import pandas as pd
 from flask import Flask, render_template, Response, request, redirect, url_for
-
-
-
-#print(df)
-
-from flask import Flask, render_template
     
 app = Flask(__name__)
-
-
-
 
 @app.route('/ceny', methods=['post'])
 def getvalue():
@@ -30,8 +21,6 @@ def getvalue():
     metryy=[]
     cena_metryy=[]
     ceny=[]
-
-# https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?search%5Bfilter_float_price%3Afrom%5D=300000&search%5Bfilter_float_price%3Ato%5D=450000&page=2
 
     for i in range(1, 10):
         page = "https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?search%5Bfilter_float_price%3Afrom%5D="+ cena_p +"&search%5Bfilter_float_price%3Ato%5D="+ cena_k +"&page={}".format(i)
@@ -61,27 +50,18 @@ def getvalue():
 
 
             csv_writer.writerow([nazwa, dzielnica, pokoj, metry, cena_metr, cena])
-
-            #data = [[nazwa, podpis, pokoj, metry, cena_metr, cena]]
-            #df = pd.DataFrame(data, columns=['Nazwa', 'Podpis', 'Pokoj', 'Metry', 'Cena za metr', 'Cena'])
+        
 
         df = pd.DataFrame({'Nazwa':nazwy, 'Dzielnica':dzielnice, 'Pokoj':pokoje, 'Metry':metryy, 'Cena za metr':cena_metryy, 'Cena':ceny})
     
     csv_writer.writerow([nazwa, podpis, pokoj])
     csv_file.close()
 
-
     return render_template('wynik.html', c1=cena_p, c2=cena_k, data=df)
 
 @app.route('/')
 def index():
-    # render your html template
     return render_template('index.html')
-
-#@app.route('/', methods=['POST'])
-#def homepage():
-
- #   return render_template("wynik.html", data=df)
 
 if __name__ == "__main__":
     app.run()
