@@ -59,3 +59,9 @@ td, th {
 tr:nth-child(even) {
    background-color: #dddddd;
 }
+
+.divider{
+   width:5px;
+   height:auto;
+   display:inline-block;
+}
