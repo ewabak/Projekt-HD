@@ -3,6 +3,7 @@ import requests
 import csv
 import pandas as pd
 from flask import Flask, render_template, Response, request, redirect, url_for
+from flask import send_file
 
     
 app = Flask(__name__)
@@ -32,9 +33,8 @@ def getvalue():
                 soup = BeautifulSoup(html.text, 'lxml')
                 
                 for mieszkanie in soup.find_all('div', class_='offer-item-details'):
-                    cenka = mieszkanie.find('li', class_='offer-item-price')
+                    #cen = mieszkanie.find('li', class_='offer-item-price').text.replace(' ','').replace('\n','').replace('zł', '')
 
-                    
                     nazwa = mieszkanie.find('span', class_='offer-item-title').text
                     nazwy.append(nazwa)
 
@@ -114,6 +114,9 @@ def getvalue():
 
             return render_template('transform.html')
 
+@app.route('/csv_file')
+def csv_file():
+    return send_file('cms_scrape.csv', attachment_filename='cms_scrape.csv', as_attachment=True)
 
 @app.route('/')
 def index():
