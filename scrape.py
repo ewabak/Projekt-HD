@@ -32,7 +32,9 @@ def getvalue():
                 soup = BeautifulSoup(html.text, 'lxml')
                 
                 for mieszkanie in soup.find_all('div', class_='offer-item-details'):
+                    cenka = mieszkanie.find('li', class_='offer-item-price')
 
+                    
                     nazwa = mieszkanie.find('span', class_='offer-item-title').text
                     nazwy.append(nazwa)
 
@@ -52,7 +54,6 @@ def getvalue():
                     cena = mieszkanie.find('li', class_='offer-item-price').text.replace(' ','').replace('\n','')
                     ceny.append(cena)
 
-
                     csv_writer.writerow([nazwa, dzielnica, pokoj, metry, cena_metr, cena])
                 
 
@@ -62,7 +63,7 @@ def getvalue():
 
             return render_template('wynik.html', c1=cena_p, c2=cena_k, data=df)
 
-        elif request.form['submit_button'] == 'extract':    #TYLKO WYKONANIE TRANSFORM
+        if request.form['submit_button'] == 'extract':    #TYLKO WYKONANIE TRANSFORM
             cena_p = request.form['od']
             cena_k = request.form['do']
 
@@ -108,6 +109,11 @@ def getvalue():
                     df = (nazwy, dzielnice, pokoje, metryy, cena_metryy, ceny)
 
             return render_template('extract.html', data=df)
+        
+        if request.form['submit_button'] == 'transform':
+
+            return render_template('transform.html')
+
 
 @app.route('/')
 def index():
