@@ -3,6 +3,8 @@ import requests
 import csv
 import pandas as pd
 from flask import Flask, render_template, Response, request, redirect, url_for
+import psycopg2
+
 
     
 app = Flask(__name__)
@@ -25,6 +27,9 @@ def getvalue():
             cena_metryy=[]
             ceny=[]
 
+            connection = psycopg2.connect(user = "postgres", password = "blingbling", database = "postgres")
+            cursor = connection.cursor()
+            sql = """INSERT INTO ads (nazwa, dzielnica, pokoj, metry, cena_metr, cena) VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING"""
 
             for i in range(1, 10):
                 page = "https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?search%5Bfilter_float_price%3Afrom%5D="+ cena_p +"&search%5Bfilter_float_price%3Ato%5D="+ cena_k +"&page={}".format(i)
@@ -52,9 +57,11 @@ def getvalue():
                     cena = mieszkanie.find('li', class_='offer-item-price').text.replace(' ','').replace('\n','')
                     ceny.append(cena)
 
-
                     csv_writer.writerow([nazwa, dzielnica, pokoj, metry, cena_metr, cena])
-                
+
+                    to_insert = (nazwa, dzielnica, pokoj, metry, cena_metr, cena)
+                    cursor.execute(sql, to_insert)
+                    connection.commit()
 
                 df = pd.DataFrame({'Nazwa':nazwy, 'Dzielnica':dzielnice, 'Pokoj':pokoje, 'Metry':metryy, 'Cena za metr':cena_metryy, 'Cena':ceny})
             
@@ -108,6 +115,8 @@ def getvalue():
                     df = (nazwy, dzielnice, pokoje, metryy, cena_metryy, ceny)
 
             return render_template('extract.html', data=df)
+
+
 
 @app.route('/')
 def index():
