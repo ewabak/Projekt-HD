@@ -4,6 +4,7 @@ import csv
 import pandas as pd
 from flask import Flask, render_template, Response, request, redirect, url_for
 from flask import send_file
+import psycopg2
 
     
 app = Flask(__name__)
@@ -25,7 +26,13 @@ def getvalue():
             metryy=[]
             cena_metryy=[]
             ceny=[]
+            count = 0
+            column_names=[]
 
+            connection = psycopg2.connect(user = "postgres", password = "haslo", database = "postgres")
+            cursor = connection.cursor()
+            sql_add = """INSERT INTO otodom ("Tytul", "Dzielnica", "Liczba pokoi", "Metraz", "Cena za metr", "Cena") VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING"""
+            sql_display = """SELECT * FROM otodom"""
 
             for i in range(1, 10):
                 page = "https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?search%5Bfilter_float_price%3Afrom%5D="+ cena_p +"&search%5Bfilter_float_price%3Ato%5D="+ cena_k +"&page={}".format(i)
@@ -53,6 +60,15 @@ def getvalue():
 
                     cena = mieszkanie.find('li', class_='offer-item-price').text.replace(' ','').replace('\n','')
                     ceny.append(cena)
+                    
+                    to_insert = (nazwa, dzielnica, pokoj, metry, cena_metr, cena)
+                    cursor.execute(sql_add, to_insert)
+                    connection.commit()
+
+                    if cursor.rowcount==1:
+                        count += 1
+                    else:
+                        pass
 
                     csv_writer.writerow([nazwa, dzielnica, pokoj, metry, cena_metr, cena])
                 
@@ -61,9 +77,18 @@ def getvalue():
             
             csv_file.close()
 
-            return render_template('wynik.html', c1=cena_p, c2=cena_k, data=df)
+            cursor.execute(sql_display)
+            datat = cursor.fetchall()
+            for elt in cursor.description:
+                column_names.append(elt[0])
+            
+            dt = pd.DataFrame(datat, columns=column_names)
+            cursor.close()
+            connection.close()
 
-        if request.form['submit_button'] == 'extract':    #TYLKO WYKONANIE TRANSFORM
+            return render_template('wynik.html', c1=cena_p, c2=cena_k, data=dt, rec=count, datat=datat)
+
+        if request.form['submit_button'] == 'extract':    #TYLKO WYKONANIE EXTRACT
             cena_p = request.form['od']
             cena_k = request.form['do']
 
@@ -78,6 +103,7 @@ def getvalue():
             cena_metryy=[]
             ceny=[]
 
+        
 
             for i in range(1, 10):
                 page = "https://www.otodom.pl/sprzedaz/mieszkanie/krakow/?search%5Bfilter_float_price%3Afrom%5D="+ cena_p +"&search%5Bfilter_float_price%3Ato%5D="+ cena_k +"&page={}".format(i)
@@ -106,17 +132,32 @@ def getvalue():
 
                     #print(nazwa, podpis, pokoj, metry, cena_metr, cena)
 
-                    df = (nazwy, dzielnice, pokoje, metryy, cena_metryy, ceny)
-
+                    df = [nazwy, dzielnice, pokoje, metryy, cena_metryy, ceny]
+                
             return render_template('extract.html', data=df)
         
         if request.form['submit_button'] == 'transform':
+            
 
             return render_template('transform.html')
+
+
 
 @app.route('/csv_file')
 def csv_file():
     return send_file('cms_scrape.csv', attachment_filename='cms_scrape.csv', as_attachment=True)
+
+@app.route('/clean')
+def clean():
+    connection = psycopg2.connect(user = "postgres", password = "haslo", database = "postgres")
+    cursor = connection.cursor()
+    sql_del = """DELETE FROM otodom"""
+    
+    cursor.execute(sql_del)
+    connection.commit()  
+    cursor.close()     
+    connection.close()
+    return render_template('clean.html')
 
 @app.route('/')
 def index():

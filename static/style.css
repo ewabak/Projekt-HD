@@ -33,6 +33,7 @@ body {
    top: 50%;
    margin-top: -50px;
  }
+ 
  .col-sides {
     display: flex;
     flex-direction: column;

@@ -28,25 +28,44 @@
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="https://github.com/ewabak/Projekt-HD">Repozytorium GitHub</a>
             <a class="nav-item nav-link" href="#">Dokumentacja</a>
+            <!--<a class="nav-item nav-link" href="/clean">Wyczyść bazę danych</a>-->
           </div>
         </div>
       </nav>
+
+      <div class="col-center">
       <div class="row"><br></div>
 
+     
+
       <div class="button-center">
+          <p class="tekst" style="font-size: 16pt;">Liczba nowych rekordów dodanych do bazy danych: {{rec}}</p>
+          <div class="row">
           <a href="/csv_file" ><button class="btn btn-primary mb-2" style="background-color: #bccfdf; color: black">Pobierz plik CSV</button></a>
+          <a href="/clean"><button class="btn btn-primary mb-2" style="background-color: #bccfdf; color: black; margin-left: 15px">Wyczyść bazę danych</button></a>
+        </div>
+        </div>
 
+ <!--    <div class="container">
+        <table>
+            {% for row in datat %}
+                <tr>
+                {% for d in row %}
+                    <td>{{ d }}</td>
+                {% endfor %}
+                </tr>
+              {% endfor %}
+        </table>
+        <br><br>
       </div>
-
-
-
+--> 
     <div class="container">
-      
-        {% block content %}
-        {{ data.to_html(classes="table table-striped") | safe}}
-        {% endblock %}
-</div>
-
+              
+      {% block content %}
+      {{ data.to_html(classes="table table-striped") | safe}}
+      {% endblock %}
+    </div>
+  </div>
     </body>
 
     </html>
