@@ -130,8 +130,6 @@ def getvalue():
                     cena = mieszkanie.find('li', class_='offer-item-price')
                     ceny.append(cena)
 
-                    #print(nazwa, podpis, pokoj, metry, cena_metr, cena)
-
                     df = [nazwy, dzielnice, pokoje, metryy, cena_metryy, ceny]
                 
             return render_template('extract.html', data=df)
