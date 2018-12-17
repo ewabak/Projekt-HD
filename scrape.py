@@ -147,6 +147,11 @@ def getvalue():
 def csv_file():
     return send_file('cms_scrape.csv', attachment_filename='cms_scrape.csv', as_attachment=True)
 
+@app.route('/dokumentacja_file')
+def dokumentacja_file():
+    return send_file('25_Projekt.pdf', attachment_filename='25_Projekt.pdf', as_attachment=True)
+    
+
 @app.route('/clean')
 def clean():
     connection = psycopg2.connect(user = "postgres", password = "haslo", database = "postgres")
