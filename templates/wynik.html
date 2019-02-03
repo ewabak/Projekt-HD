@@ -13,23 +13,19 @@
     
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css')}}"> 
 
-    <title>Projekt Hurtownie danych</title>
+    <title>Projekt ETL</title>
 
   </head>
 
   <body>
 
     <nav class="navbar navbar-expand-lg" style="background-color: #bccfdf;">
-        <a class="navbar-brand" >Projekt Hurtownie Danych</a>
+        <a class="navbar-brand" >Projekt ETL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" >
-          <div class="navbar-nav">
-            <a class="nav-item nav-link" href="https://github.com/ewabak/Projekt-HD">Repozytorium GitHub</a>
-            <a class="nav-item nav-link" href="/dokumentacja_file">Dokumentacja</a>
-            
-          </div>
+
         </div>
       </nav>
 
@@ -39,10 +35,8 @@
      
 
       <div class="button-center">
-          <p class="tekst" style="font-size: 16pt;">Liczba nowych rekordów dodanych do bazy danych: {{rec}}</p>
           <div class="row">
           <a href="/csv_file" ><button class="btn btn-primary mb-2" style="background-color: #bccfdf; color: black">Pobierz plik CSV</button></a>
-          <a href="/clean"><button class="btn btn-primary mb-2" style="background-color: #bccfdf; color: black; margin-left: 15px">Wyczyść bazę danych</button></a>
         </div>
         </div>
 
